@@ -35,7 +35,7 @@ app.post('/register', async (req, res) => {
     } catch(e) {
         res.status(422).json(e)
     }
-    
+
 });
 
 app.post('/login', async (req, res) => {
@@ -51,7 +51,7 @@ app.post('/login', async (req, res) => {
                 id: userDoc._id
             }, jwtSecret, {}, (err, token) => {
                 if(err) throw err;
-                res.cookie('token', token).json('password matches!');    
+                res.cookie('token', token).json(userDoc);    
             })
            
         } else {
