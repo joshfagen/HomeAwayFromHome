@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {Perks} from '../Perks';
+import axios from 'axios';
 
 export default function PlacesPage() {
     const {action} = useParams();
@@ -35,6 +36,11 @@ export default function PlacesPage() {
             {inputHeader(header)}
             {inputDescription(description)}
         </>
+    }
+
+    async function addPhotoByLink(ev) {
+        ev.preventDefault();
+        await axios.post('/upload-by-link', {link: photoLinks})
     }
 
     return (
@@ -94,7 +100,7 @@ export default function PlacesPage() {
                                 onChange={(ev) => setPhotoLinks(ev.target.value)} 
                                 placeholder={'Add using one or more links separated by commas. ex: /bit.ly/mypic1.jpg, bit.ly/mypic2.jpg'} 
                             />
-                            <button className="bg-gray-200 px-4 rounded-2xl">Add&nbsp;photo(s)</button>
+                            <button onClick={addPhotoByLink} className="bg-gray-200 px-4 rounded-2xl">Add&nbsp;photo(s)</button>
                         </div>
                         <div className='mt-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
                             <button className="flex justify-center gap-2 border bg-transparent rounded-2xl p-8 text-lg text-gray-600">
